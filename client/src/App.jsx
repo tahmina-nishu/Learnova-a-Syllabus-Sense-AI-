@@ -5,6 +5,7 @@ import axios from 'axios'
 function App() {
   const [syllabus, setSyllabus] = useState(null)
   const [result, setResult] = useState('')
+  const [analysis, setAnalysis] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -14,6 +15,7 @@ function App() {
     setLoading(true)
     setError('')
     setResult('')
+    setAnalysis('')
 
     const formData = new FormData()
     formData.append('syllabus', syllabus)
@@ -25,6 +27,7 @@ function App() {
       )
 
       setResult(response.data.text)
+      setAnalysis(response.data.analysis)
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -128,6 +131,19 @@ function App() {
               </pre>
             </div>
           )}
+
+          
+          {analysis && (
+            <div className="mt-6 rounded-2xl border border-indigo-100 bg-indigo-50 p-5">
+              <h4 className="mb-3 text-xl font-bold text-indigo-700">
+                Learnova AI Analysis
+              </h4>
+              <div className="whitespace-pre-wrap break-words text-sm leading-7 text-slate-700">
+                {analysis}
+              </div>
+            </div>
+          )}
+
         </section>
       </main>
 
